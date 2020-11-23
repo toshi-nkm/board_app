@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+    <div class="form-group">
+      <label for="exampleFormControlInput1">タイトル</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="タイトルを入力してください" name="title">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">投稿内容</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name=content></textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlFile1">画像</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+    </div>
+    <input type="hidden" name='author' value='{{ user.username}}'>
+    <input type="submit"　class="btn btn-outline-info" value="投稿">　　　
+    <a href="{% url 'list' %}" class="btn btn-outline-dark  " role="button" aria-pressed="true">戻る</a>
+  </form>
+</div>
+
+{% else %}
+<a href="{% url 'login' %}">ログインしてください</a>
+{% endif %}
+{% endblock content %}
